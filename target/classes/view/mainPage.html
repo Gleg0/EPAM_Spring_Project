@@ -25,7 +25,10 @@
 </head>
 <body style="mer">
 <header class="page-header">
-    <button style="margin:10px; right:0px;" type="submit" th:text="#{lang}"></button>
+    <form method="get" action="@{/}">
+        <input type="hidden" name="lang" th:value="${#locale.toString()}=='ua'?'en':'ua'"/>
+        <button type="submit" th:text="#{lang}"></button>
+    </form>
 </header>
 </body>
 </html>
