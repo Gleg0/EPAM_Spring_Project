@@ -1,34 +1,13 @@
 <!DOCTYPE>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <style>
-    body{
-    margin:0;
-    }
-    .page-header{
-    background-color:#6ed2d2;
-    color:white;
-    height: 100px
-    }
-    button {
-        font-weight: bold;
-        border-radius: 5px;
-        border: none;
-        color: white;
-        padding: 4px 8px;
-        cursor: pointer;
-        background-color: blue;
-        font-size: 60px
-     }
-    </style>
+<head th:insert="fragments/head.html :: head">
 </head>
-<body style="mer">
-<header class="page-header">
-    <form style="margin-right:10px" method="get" th:action="@{/}">
-        <input type="hidden" name="lang" th:value="${#locale.toString()}=='ua'?'en':'ua'"/>
-        <button style="position:relative; margin:10px" type="submit" th:text="#{lang}"></button>
-    </form>
-</header>
+<body>
+<div class="content">
+    <nav th:insert="fragments/navbar.html"></nav>
+    <div class="row">
+        <h1 class="d-flex justify-content-center">Гліб не розстраюйся</h1>
+    </div>
+</div>
 </body>
 </html>
