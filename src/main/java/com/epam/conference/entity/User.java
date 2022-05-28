@@ -1,7 +1,6 @@
 package com.epam.conference.entity;
 
 import lombok.*;
-import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,8 +23,12 @@ public class User implements UserDetails {
     private String username;
     private String email;
     private String password;
+
+
     @Transient
     private String passwordConfirm;
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> role;
     @Override
