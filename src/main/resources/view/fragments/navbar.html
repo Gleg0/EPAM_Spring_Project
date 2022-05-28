@@ -1,11 +1,22 @@
-<nav th:fragment="navbar" class="navbar navbar-light bg-light">
+<nav xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" th:fragment="navbar" class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">Conferences</span>
-        <div class="nav-item me-2">
-            <form class="mb-0" method="get" th:action="@{/}">
-                <input type="hidden" name="lang" th:value="${#locale.toString()}=='ua'?'en':'ua'"/>
-                <button class="btn btn-primary" type="submit" th:text="#{lang}"></button>
-            </form>
+        <div class="d-flex">
+            <div class="nav-item me-4">
+                <form class="mb-0" method="get" th:action="@{/}">
+                    <input type="hidden" name="lang" th:value="${#locale.toString()}=='ua'?'en':'ua'"/>
+                    <button class="btn btn-primary" type="submit" th:text="#{lang}"></button>
+                </form>
+            </div>
+            <div class="nav-item me-2" sec:authorize="!isAuthenticated()">
+                <a class="btn btn-outline-success" href="/login">Login</a>
+            </div>
+            <div class="nav-item me-2" sec:authorize="isAuthenticated()">
+                <form class="mb-0" method="post" action="/logout">
+                    <input hidden name="_csrf" th:value="${_csrf.token}">
+                    <button class="btn btn-outline-danger" type="submit">Logout</button>
+                </form>
+            </div>
         </div>
     </div>
 </nav>
