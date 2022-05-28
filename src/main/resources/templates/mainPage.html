@@ -9,7 +9,7 @@
         <h1 class="d-flex justify-content-center">Та не розтроївся я</h1>
     </div>
     <div class="row" th:if="${user != null}">
-        <label th:text="${user.username} ?: 'UNKNOWN'">Hello: </label>
+        <label>Hello: <span th:text="${user.username} ?: 'UNKNOWN'"></span></label>
     </div>
 </div>
 </body>
