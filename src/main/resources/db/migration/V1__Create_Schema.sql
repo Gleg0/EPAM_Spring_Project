@@ -43,7 +43,6 @@ CREATE TABLE public.t_user (
                                id bigint NOT NULL,
                                email character varying(255),
                                password character varying(255),
-                               password_confirm character varying(255),
                                username character varying(255)
 );
 
