@@ -3,10 +3,10 @@ package com.epam.conference.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Transient;
+import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.hibernate.Hibernate;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
