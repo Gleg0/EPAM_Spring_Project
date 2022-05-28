@@ -19,7 +19,7 @@ public class Role implements GrantedAuthority {
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "role")
     private Set<User> users;
 
     @Override
