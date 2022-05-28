@@ -1,8 +1,6 @@
 package com.epam.conference.service;
 
-import com.epam.conference.entity.Role;
 import com.epam.conference.entity.User;
-import com.epam.conference.repository.RoleRepository;
 import com.epam.conference.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,14 +15,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.epam.conference.entity.Role.USER;
+
 @Service
 public class UserService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -51,7 +49,7 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             return false;
         }
-        user.setRole(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRole(Collections.singleton(USER));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
