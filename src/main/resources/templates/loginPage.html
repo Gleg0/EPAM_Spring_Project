@@ -9,7 +9,7 @@
         <form method="post" action="/login">
             <input hidden name="_csrf" th:value="${_csrf.token}"/>
             <div class="row mb-2">
-                <h1>Log In</h1>
+                <h1 th:text="#{log-in}"></h1>
             </div>
             <div class="row col-4">
                 <input class="form-control mb-2" name="username" placeholder="Login">
@@ -18,7 +18,7 @@
                 <input class="form-control mb-2" type="password" name="password" placeholder="Password">
             </div>
             <div class="row col-4">
-                <button type="submit" class="btn btn-primary">Log In</button>
+                <button type="submit" class="btn btn-primary" th:text="#{log-in}"></button>
             </div>
         </form>
     </div>

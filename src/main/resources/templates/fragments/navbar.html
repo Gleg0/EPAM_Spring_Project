@@ -12,11 +12,12 @@
         <div class="d-flex">
             <div class="nav-item me-4">
                 <a class="btn btn-primary" th:text="#{lang}"
-                        th:href="@{__${#httpServletRequest.requestURI}__?lang=__${#locale.toString()}=='ua'?'en':'ua'__}">
+                   th:href="@{__${#httpServletRequest.requestURI}__?lang=__${#locale.toString()}=='ua'?'en':'ua'__}">
                 </a>
             </div>
             <div class="nav-item me-2" sec:authorize="!isAuthenticated()">
-                <a class="btn btn-outline-success" href="/login">Login</a>
+                <a class="btn btn-outline-success" href="/login" th:text="#{log-in}"></a>
+                <a class="btn btn-outline-success" href="/registration" th:text="#{reg-button}"></a>
             </div>
             <div class="nav-item me-2" sec:authorize="isAuthenticated()">
                 <form class="mb-0" method="post" action="/logout">
