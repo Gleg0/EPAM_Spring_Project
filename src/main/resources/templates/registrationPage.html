@@ -1,0 +1,31 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div class="content">
+    <nav th:insert="fragments/navbar.html"></nav>
+    <div class="row">
+        <h1 class="d-flex justify-content-center"></h1>
+    </div>
+    <form method="POST" modelAttribute="userForm">
+        <h2><span th:text="#{registration}"></span></h2>
+        <div>
+            <input type="text" path="username" placeholder="Username"
+                        autofocus="true"/>
+            <errors path="username">${usernameError}</errors>
+        </div>
+        <div>
+            <input type="password" path="password" placeholder="Password"/>
+        </div>
+        <div>
+            <input type="password" path="passwordConfirm"
+                        placeholder="Confirm your password"/>
+            <errors path="password">${passwordError}</errors>
+
+        </div>
+        <button type="submit" th:text="#{reg-button}"></button>
+    </form>
+</div>
+</body>
+</html>
