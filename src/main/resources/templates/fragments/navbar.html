@@ -1,6 +1,13 @@
 <nav xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" th:fragment="navbar" class="navbar navbar-light bg-light">
     <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">Conferences</span>
+        <div class="d-flex">
+            <div class="nav-item me-4">
+                <input type="button" class="btn btn-primary" onclick="window.location.href='/'" th:value="#{mainPage-button}"/>
+            </div>
+            <div class="nav-item me-4">
+                <span class="navbar-brand mb-0 h1">Conferences</span>
+            </div>
+        </div>
         <div class="d-flex">
             <div class="nav-item me-4">
                 <form class="mb-0" method="get" th:action="@{/}">
