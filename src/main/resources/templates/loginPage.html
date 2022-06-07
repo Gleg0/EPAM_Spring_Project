@@ -6,7 +6,7 @@
 <div class="content">
     <nav th:insert="fragments/navbar.html"></nav>
     <div class="container mt-4">
-        <form method="post" action="/login">
+        <form method="post" th:action="@{/login}">
             <input hidden name="_csrf" th:value="${_csrf.token}"/>
             <div class="row mb-2">
                 <h1 th:text="#{log-in}"></h1>
