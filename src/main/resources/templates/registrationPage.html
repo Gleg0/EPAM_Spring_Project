@@ -9,20 +9,34 @@
         <h1 class="d-flex justify-content-center"></h1>
     </div>
     <div class="container mt-4">
-        <form method="post" action="/registration" modelAttribute="userForm">
+
+        <div th:if="${param.success}">
+            <div class="alert alert-info">You've successfully registered!</div>
+        </div>
+
+        <form method="post" th:action="@{/registration}" th:object="${user}">
             <h2><span th:text="#{registration}"></span></h2>
-            <div class="row col-4">
-                <input class="form-control mb-2" type="text" path="username" placeholder="Username"
-                       autofocus="true"/>
-                <errors path="username"></errors>
+            <div class="row col-4" th:classappend="${#fields.hasErrors('username')}? 'has-error':''">
+                <input th:field="*{username}"/>
+                <p class="error-message" th:each="error: ${#fields.errors('username')}"
+                   th:text="${error}">Validation error</p>
             </div>
-            <div class="row col-4">
-                <input class="form-control mb-2" type="password" path="password" placeholder="Password"/>
+            <div class="row col-4" th:classappend="${#fields.hasErrors('email')}? 'has-error':''">
+                <input type="email" th:field="*{email}"/>
+                <p class="error-message" th:each="error : ${#fields.errors('email')}"
+                   th:text="${error}">Validation error</p>
             </div>
-            <div class="row col-4">
-                <input class="form-control mb-2" type="password" path="passwordConfirm"
-                       placeholder="Confirm your password"/>
-                <errors path="password"></errors>
+            <div class="row col-4" th:classappend="${#fields.hasErrors('password')}? 'has-error':''">
+                <input type="password" th:field="*{password}"/>
+                <p class="error-message"
+                   th:each="error : ${#fields.errors('password')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+            <div class="row col-4" th:classappend="${#fields.hasErrors('passwordConfirm')}? 'has-error':''">
+                <input type="password" th:field="*{passwordConfirm}"/>
+                <p class="error-message"
+                   th:each="error : ${#fields.errors('passwordConfirm')}"
+                   th:text="${error}">Validation error</p>
             </div>
             <div class="row col-4">
                 <button class="btn btn-primary" type="submit" th:text="#{reg-button}"></button>

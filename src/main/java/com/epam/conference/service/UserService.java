@@ -1,6 +1,7 @@
 package com.epam.conference.service;
 
 import com.epam.conference.entity.User;
+import com.epam.conference.entity.UserDto;
 import com.epam.conference.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,14 +12,11 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.conference.entity.Role.USER;
-
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService{
     @PersistenceContext
     private EntityManager em;
     @Autowired
@@ -35,6 +33,18 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public User registerNewUserAccount(UserDto userDto){
+        if (emailExists(userDto.getEmail())) {
+            return null;
+        }
+        User user = new User();
+        user.setUsername(userDto.getUsername());
+        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        user.setEmail(userDto.getEmail());
+
+        return userRepository.save(user);
+    }
+
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());
@@ -42,17 +52,6 @@ public class UserService implements UserDetailsService {
 
     public List<User> allUsers() {
         return userRepository.findAll();
-    }
-
-    public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-        if (userFromDB != null) {
-            return false;
-        }
-        user.setRole(Collections.singleton(USER));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
     }
 
     public boolean deleteUser(Long userId) {
@@ -66,5 +65,13 @@ public class UserService implements UserDetailsService {
     public List<User> usergtList(Long idMin) {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
+    }
+
+    public boolean emailExists(String email) {
+        return userRepository.findByEmail(email) != null;
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Controller
 public class MainPageController{
+
     @GetMapping("/")
     public String mainGet(
             Model model,
