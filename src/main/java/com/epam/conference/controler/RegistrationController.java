@@ -8,27 +8,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController{
     @Autowired
     private UserService userService;
 
-    @GetMapping("/registration")
+    @ModelAttribute("user")
+    public UserDto userDto() {
+        return new UserDto();
+    }
+
+    @GetMapping
     public String showRegistrationForm(WebRequest request, Model model) {
-        UserDto userDto = new UserDto();
-        model.addAttribute("user", userDto);
         return "registrationPage";
     }
-    @PostMapping("/registration")
+    @PostMapping
     public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result) {
         User existing = userService.findUserByEmail(userDto.getEmail());
         if (existing != null) {
