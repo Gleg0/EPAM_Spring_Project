@@ -34,9 +34,6 @@ public class UserService implements UserDetailsService{
     }
 
     public User registerNewUserAccount(UserDto userDto){
-        if (emailExists(userDto.getEmail())) {
-            return null;
-        }
         User user = new User();
         user.setUsername(userDto.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
