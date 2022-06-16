@@ -1,6 +1,6 @@
 package com.epam.conference.repository;
 
-import com.epam.conference.entity.User;
+import com.epam.conference.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,4 +1,4 @@
-package com.epam.conference.entity;
+package com.epam.conference.entity.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
