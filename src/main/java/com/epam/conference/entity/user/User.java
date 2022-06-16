@@ -1,4 +1,4 @@
-package com.epam.conference.entity;
+package com.epam.conference.entity.user;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

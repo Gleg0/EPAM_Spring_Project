@@ -1,6 +1,6 @@
 package com.epam.conference.controler;
 
-import com.epam.conference.entity.User;
+import com.epam.conference.entity.user.User;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

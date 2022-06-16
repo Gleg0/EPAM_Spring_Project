@@ -1,7 +1,7 @@
 package com.epam.conference.service;
 
-import com.epam.conference.entity.User;
-import com.epam.conference.entity.UserDto;
+import com.epam.conference.entity.user.User;
+import com.epam.conference.entity.user.UserDto;
 import com.epam.conference.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +39,7 @@ public class UserService implements UserDetailsService{
         user.setUsername(userDto.getUsername());
         user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
-
+        user.setRole(Collections.singleton(userDto.getRole()));
         return userRepository.save(user);
     }
 

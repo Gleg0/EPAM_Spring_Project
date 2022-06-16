@@ -1,4 +1,4 @@
-package com.epam.conference.entity;
+package com.epam.conference.entity.user;
 
 
 import com.epam.conference.anotation.FieldsValueMatch;
@@ -12,6 +12,7 @@ public class UserDto {
     private String username;
     @NotEmpty
     private String email;
+    private Role role;
     @NotEmpty
     private String password;
     private String confirmPassword;
@@ -47,4 +48,13 @@ public class UserDto {
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
     }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
 }
