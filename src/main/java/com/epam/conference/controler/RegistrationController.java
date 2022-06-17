@@ -1,6 +1,7 @@
 package com.epam.conference.controler;
 
-import com.epam.conference.entity.User;
+import com.epam.conference.entity.user.User;
+import com.epam.conference.entity.user.UserDto;
 import com.epam.conference.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,36 +10,35 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
-
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController{
     @Autowired
     private UserService userService;
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-
-        return "registration";
+    @ModelAttribute("user")
+    public UserDto userDto() {
+        return new UserDto();
     }
 
-    @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
+    @GetMapping
+    public String showRegistrationForm(WebRequest request, Model model) {
+        return "registrationPage";
+    }
+    @PostMapping
+    public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result) {
+        User existing = userService.findUserByEmail(userDto.getEmail());
+        if (existing != null) {
+            result.rejectValue("email", null, "There is already an account registered with that email");
         }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
+        if (result.hasErrors()) {
+            return "registrationPage";
         }
-        if (!userService.saveUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
-        }
-
-        return "redirect:/";
+        userService.registerNewUserAccount(userDto);
+        return "redirect:/registrationPage?success";
     }
 }
