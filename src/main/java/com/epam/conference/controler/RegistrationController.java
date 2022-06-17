@@ -39,6 +39,6 @@ public class RegistrationController{
             return "registrationPage";
         }
         userService.registerNewUserAccount(userDto);
-        return "redirect:/registrationPage?success";
+        return "redirect:/registration?success";
     }
 }
