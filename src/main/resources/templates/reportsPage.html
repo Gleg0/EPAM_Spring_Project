@@ -1,0 +1,70 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div class="content">
+    <nav th:insert="fragments/navbar.html"></nav>
+    <div class="row">
+        <h1 class="d-flex justify-content-center"></h1>
+    </div>
+    <div class="container-fluid me-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:text="#{name-reports}"></th>
+                <th th:text="#{name-of-speaker}"></th>
+                <th th:text="#{description-reports}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${reportList.empty}">
+                <td colspan="2"> No reports available </td>
+            </tr>
+            <tr th:each="report : ${reportList}">
+                <td><span th:text="${report.name}"> Name </span></td>
+                <div sec:authorize="hasAuthority('SPEAKER')">
+                    <div th:if="${report.speaker != null}}">
+                        <td><span th:text="${report.speaker.username}"> Speaker </span></td>
+                    </div>
+                    <div th:unless="${report.speaker != null}">
+                        <td>
+                            <input type="button" class="btn btn-primary me-4" onclick="window.location.href='/request?type=new_speaker&reportId=${report.id}}'" th:value="#{request-new-speaker}"/>
+                        </td>
+                    </div>
+                </div>
+                <div sec:authorize="hasAuthority('USER')">
+                    <div th:if="${report.speaker != null}}">
+                        <td><span th:text="${report.speaker.username}"> Speaker </span></td>
+                    </div>
+                    <div th:unless="${report.speaker != null}">
+                        <td>
+                            <span th:text="#{no-speaker}"> Speaker </span>
+                        </td>
+                    </div>
+                </div>
+                <div sec:authorize="hasAuthority('MODERATOR')">
+                    <div th:if="${report.speaker != null}">
+                        <td><span th:text="${report.speaker.username}"> Speaker </span></td>
+                    </div>
+                    <div th:unless="${report.speaker != null}">
+                        <td>
+                            <span th:text="#{no-speaker}"> Speaker </span>
+                        </td>
+                    </div>
+                </div>
+                <td><span th:text="${report.description}"> Description </span></td>
+                <td>
+                    <div sec:authorize="hasAuthority('MODERATOR')">
+                        <a class="btn btn-primary" th:text="#{edit-report}"
+                           th:href="@{/edit/report?reportId=__${report.id}__}">
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

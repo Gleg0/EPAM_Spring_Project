@@ -1,14 +1,10 @@
 package com.epam.conference.entity.event;
-
+import com.epam.conference.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
-
 @Getter
 @Setter
 @Entity
@@ -24,4 +20,11 @@ public class Event {
     @OneToMany
     @JoinColumn(name = "event_id")
     private Set<Report> reports;
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "t_users_events",
+            joinColumns = { @JoinColumn(name = "event_id") },
+            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+    )
+    private Set<User> users;
 }

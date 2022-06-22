@@ -1,5 +1,5 @@
 <!DOCTYPE>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/head.html :: head">
 </head>
 <body>
@@ -9,12 +9,13 @@
         <h1 class="d-flex justify-content-center"></h1>
     </div>
     <div class="container-fluid me-4">
-        <table>
+        <table class="table">
             <thead>
             <tr>
                 <th th:text="#{name-events}"></th>
                 <th th:text="#{date-events}"></th>
                 <th th:text="#{description-events}"></th>
+                <th th:text="#{number-of-participants}"></th>
                 <th th:text="#{reports-events}"></th>
             </tr>
             </thead>
@@ -26,7 +27,24 @@
                 <td><span th:text="${event.name}"> Name </span></td>
                 <td><span th:text="${#dates.format(event.date,'yyyy-MM-DD')}"> Data </span></td>
                 <td><span th:text="${event.description}"> Description </span></td>
-                <td></td>
+                <td><span th:text="${event.users.size()}"> Description </span></td>
+                <div sec:authorize="hasAuthority('MODERATOR')">
+                    <td>
+                        <a type="button" class="btn btn-primary me-4" th:href="@{'/add/report?eventId=' + ${event.id}}" th:text="#{add-report}"></a>
+                        <a type="button" class="btn btn-primary me-4" th:href="@{'/reports?eventId=' + ${event.id}}" th:text="#{reports}"></a>
+                    </td>
+                </div>
+                <div sec:authorize="hasAuthority('USER')">
+                    <td>
+                        <a type="button" class="btn btn-primary me-4" th:href="@{'/regForEvent?eventId=' + ${event.id}}" th:text="#{reg-for-event}"></a>
+                        <a type="button" class="btn btn-primary me-4" th:href="@{'/reports?eventId=' + ${event.id}}" th:text="#{reports}"></a>
+                    </td>
+                </div>
+                <div sec:authorize="hasAuthority('SPEAKER')">
+                    <td>
+                        <a type="button" class="btn btn-primary me-4" th:href="@{'/reports?eventId=' + ${event.id}}" th:text="#{reports}"></a>
+                    </td>
+                </div>
             </tr>
             </tbody>
         </table>

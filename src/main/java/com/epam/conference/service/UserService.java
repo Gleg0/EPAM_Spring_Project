@@ -1,7 +1,7 @@
 package com.epam.conference.service;
-
+import com.epam.conference.entity.user.Role;
 import com.epam.conference.entity.user.User;
-import com.epam.conference.entity.user.UserDto;
+import com.epam.conference.entity.dto.UserDto;
 import com.epam.conference.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +15,6 @@ import javax.persistence.PersistenceContext;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class UserService implements UserDetailsService{
     @PersistenceContext
@@ -71,5 +70,9 @@ public class UserService implements UserDetailsService{
 
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public List<User> allSpeakers() {
+        return userRepository.findByRole(Role.SPEAKER);
     }
 }

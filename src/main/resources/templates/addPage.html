@@ -31,8 +31,24 @@
             </form>
         </dib>
         <dib th:if="${type == 'report'}">
-            <form method="post" th:action="@{/add/report}" th:object="${report}">
-
+            <form method="post" th:action="@{'/add/report?eventId=' + ${eventId}}" th:object="${report}">
+                <div class="col-4">
+                    <label th:text="#{name-report}"></label>
+                    <input class="form-control mb-2" rows="3" type="text" required th:field="*{name}"/>
+                </div>
+                <div class="col-4">
+                    <select class="form-control mb-2" th:field="${report.speakerId}"  id="dropOperator">
+                        <option th:value="${null}" th:text="#{option}"></option>
+                        <option th:each="user : ${speakers}" th:value="${user.id}" th:text="${user.username}"></option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <label th:text="#{description-event}"></label>
+                    <textarea class="form-control mb-2" rows="3" required th:field="*{description}"></textarea>
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary" type="submit" th:text="#{create-report-button}"></button>
+                </div>
             </form>
         </dib>
     </div>

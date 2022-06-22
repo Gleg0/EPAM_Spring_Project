@@ -1,7 +1,7 @@
 package com.epam.conference.controler;
 
 import com.epam.conference.entity.user.User;
-import com.epam.conference.entity.user.UserDto;
+import com.epam.conference.entity.dto.UserDto;
 import com.epam.conference.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

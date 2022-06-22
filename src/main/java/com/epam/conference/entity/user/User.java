@@ -1,17 +1,14 @@
 package com.epam.conference.entity.user;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Set;
-
 @Getter
 @Setter
 @Entity
@@ -29,7 +26,6 @@ public class User implements UserDetails {
     @CollectionTable(name = "t_user_role", joinColumns = @JoinColumn(name="user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> role;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRole();
@@ -50,7 +46,6 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,7 +53,6 @@ public class User implements UserDetails {
         User user = (User) o;
         return id != null && Objects.equals(id, user.id);
     }
-
     @Override
     public int hashCode() {
         return getClass().hashCode();

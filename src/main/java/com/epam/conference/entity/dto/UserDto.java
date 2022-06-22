@@ -1,10 +1,8 @@
-package com.epam.conference.entity.user;
-
-
+package com.epam.conference.entity.dto;
 import com.epam.conference.anotation.FieldsValueMatch;
+import com.epam.conference.entity.user.Role;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.validation.constraints.NotEmpty;
 @Setter
 @Getter

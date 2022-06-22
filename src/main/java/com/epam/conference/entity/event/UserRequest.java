@@ -1,11 +1,8 @@
 package com.epam.conference.entity.event;
-
 import com.epam.conference.entity.user.User;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-
 @Getter
 @Setter
 @Entity

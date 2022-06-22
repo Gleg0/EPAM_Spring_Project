@@ -1,14 +1,9 @@
-package com.epam.conference.entity.event;
-
-import lombok.Data;
+package com.epam.conference.entity.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-
 @Setter
 @Getter
 public class EventDto {
