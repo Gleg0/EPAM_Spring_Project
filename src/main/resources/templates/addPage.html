@@ -1,0 +1,41 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div class="content">
+    <nav th:insert="fragments/navbar.html"></nav>
+    <div class="row">
+        <h1 class="d-flex justify-content-center"></h1>
+    </div>
+    <div class="container-fluid me-4">
+        <dib th:if="${type == 'event'}">
+            <form method="post" th:action="@{/add/event}" th:object="${event}">
+                <div class="card-body p-4 p-md-5">
+                    <div class="col-4">
+                        <label th:text="#{name-event}"></label>
+                        <input class="form-control mb-2" type="text" required th:field="*{name}">
+                    </div>
+                    <div class="col-4">
+                        <label th:text="#{description-event}"></label>
+                        <textarea class="form-control mb-2" rows="3" required th:field="*{description}"></textarea>
+                    </div>
+                    <div class="col-4">
+                        <label th:text="#{data-event}"></label>
+                        <input class="form-control mb-2" rows="3" id="txtDate" type="date" required th:field="*{date}"/>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" type="submit" th:text="#{create-event-button}"></button>
+                    </div>
+                </div>
+            </form>
+        </dib>
+        <dib th:if="${type == 'report'}">
+            <form method="post" th:action="@{/add/report}" th:object="${report}">
+
+            </form>
+        </dib>
+    </div>
+</div>
+</body>
+</html>
