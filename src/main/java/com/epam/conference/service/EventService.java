@@ -51,6 +51,12 @@ public class EventService {
         return ServiceUtils.toPage(events,pageable);
     }
 
+    public Page<Event> getListOfEventsAfterCurrentSortedByReportsSizeRevers(Pageable pageable){
+        List<Event> events = eventRepository.findAllByDateAfter(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .stream().sorted(Comparator.comparing(Event::getReportsSize).reversed()).collect(Collectors.toList());
+        return ServiceUtils.toPage(events,pageable);
+    }
+
     public Page<Event> getListOfEventsBeforeCurrent(Pageable pageable){
         return new PageImpl<>(eventRepository.findAll(pageable).filter(event -> {
             try {

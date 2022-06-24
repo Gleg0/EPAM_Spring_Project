@@ -43,7 +43,7 @@ public class EventsPageController {
     }
     @GetMapping("/reportsSizeDesc")
     public String eventsReportsSizeDesc(Model model,@PageableDefault(value = 10,direction = Sort.Direction.DESC) Pageable pageable){
-        model.addAttribute("eventList",eventService.getListOfEventsAfterCurrentSortedByReportsSize(pageable));
+        model.addAttribute("eventList",eventService.getListOfEventsAfterCurrentSortedByReportsSizeRevers(pageable));
         return "eventsPage";
     }
 
