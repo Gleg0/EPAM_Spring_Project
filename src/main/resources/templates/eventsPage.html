@@ -16,6 +16,7 @@
                 <th th:text="#{date-events}"></th>
                 <th th:text="#{description-events}"></th>
                 <th th:text="#{number-of-participants}"></th>
+                <th th:text="#{number-of-reports}"></th>
                 <th th:text="#{reports-events}"></th>
             </tr>
             </thead>
@@ -25,12 +26,14 @@
             </tr>
             <tr th:each="event : ${eventList}">
                 <td><span th:text="${event.name}"> Name </span></td>
-                <td><span th:text="${#dates.format(event.date,'yyyy-MM-DD')}"> Data </span></td>
+                <td><span th:text="${#dates.format(event.date,'yyyy-MM-dd')}"> Data </span></td>
                 <td><span th:text="${event.description}"> Description </span></td>
-                <td><span th:text="${event.users.size()}"> Description </span></td>
+                <td><span th:text="${event.users.size()}"> Users </span></td>
+                <td><span th:text="${event.reports.size()}"> Reports </span></td>
                 <div sec:authorize="hasAuthority('MODERATOR')">
                     <td>
                         <a type="button" class="btn btn-primary me-4" th:href="@{'/add/report?eventId=' + ${event.id}}" th:text="#{add-report}"></a>
+                        <a type="button" class="btn btn-primary me-4" th:href="@{'/edit/event?eventId=' + ${event.id}}" th:text="#{edit-event}"></a>
                         <a type="button" class="btn btn-primary me-4" th:href="@{'/reports?eventId=' + ${event.id}}" th:text="#{reports}"></a>
                     </td>
                 </div>

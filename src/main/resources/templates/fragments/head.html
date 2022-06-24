@@ -1,4 +1,4 @@
-<head th:fragment="head">
+<head th:fragment="head" >
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -18,7 +18,7 @@
     var dtToday = new Date();
 
     var month = dtToday.getMonth() + 1;
-    var day = dtToday.getDate();
+    var day = dtToday.getUTCDate();
     var year = dtToday.getFullYear();
 
     if(month < 10)

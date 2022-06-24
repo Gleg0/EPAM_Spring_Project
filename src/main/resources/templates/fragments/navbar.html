@@ -1,4 +1,4 @@
-<nav xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+<nav xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.w3.org/1999/xhtml"
      th:fragment="navbar" class="navbar navbar-light bg-light">
     <div class="container-fluid">
         <div class="d-flex">
@@ -6,14 +6,23 @@
                 <input type="button" class="btn btn-primary" onclick="window.location.href='/'" th:value="#{mainPage-button}"/>
             </div>
             <div class="nav-item me-4">
-                <span class="navbar-brand mb-0 h1">Conferences</span>
+                <span class="navbar-brand mb-0 h1"></span>
             </div>
         </div>
         <div class="d-flex">
             <div class="nav-item me-4">
-                <a class="btn btn-primary" th:text="#{lang}"
-                   th:href="@{__${#httpServletRequest.requestURI}__?lang=__${#locale.toString()}=='ua'?'en':'ua'__}">
-                </a>
+                <div th:if="${param.eventId == null}">
+                    <a class="btn btn-primary" th:text="#{lang}"
+                       th:href="@{__${#httpServletRequest.requestURI}__?lang=__${#locale.toString()}=='ua'?'en':'ua'__}">
+                    </a>
+                </div>
+            </div>
+            <div class="nav-item me-4" th:with="eventId=${param.eventId != null ? param.eventId[0] : 'none'}">
+                <div th:if="${param.eventId != null}">
+                    <a class="btn btn-primary" th:text="#{lang}"
+                       th:href="@{__${#httpServletRequest.requestURI}__?eventId=__${eventId}__&lang=__${#locale.toString()}=='ua'?'en':'ua'__}">
+                    </a>
+                </div>
             </div>
             <div class="nav-item me-2" sec:authorize="!isAuthenticated()">
                 <a class="btn btn-outline-success" href="/login" th:text="#{log-in}"></a>

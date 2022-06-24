@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div sec:authorize="hasAuthority('USER')">
-                    <div th:if="${report.speaker != null}}">
+                    <div th:if="${report.speaker != null}">
                         <td><span th:text="${report.speaker.username}"> Speaker </span></td>
                     </div>
                     <div th:unless="${report.speaker != null}">

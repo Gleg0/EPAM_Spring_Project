@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 @Getter
 @Setter
 @Entity
@@ -15,16 +15,23 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Temporal(TemporalType.DATE)
     private Date date;
     private String description;
     @OneToMany
     @JoinColumn(name = "event_id")
-    private Set<Report> reports;
+    private List<Report> reports;
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "t_users_events",
             joinColumns = { @JoinColumn(name = "event_id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
-    private Set<User> users;
+    private List<User> users;
+    public int getUsersSize(){
+        return users.size();
+    }
+    public int getReportsSize(){
+        return reports.size();
+    }
 }

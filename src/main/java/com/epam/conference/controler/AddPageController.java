@@ -45,7 +45,7 @@ public class AddPageController {
         return "addPage";
     }
     @PostMapping("/event")
-    public String mainPostAddEvent(@ModelAttribute("report") @Valid EventDto eventDto){
+    public String mainPostAddEvent(@ModelAttribute("event") @Valid EventDto eventDto){
         eventService.addNewEvent(eventDto);
         return "redirect:/";
     }
