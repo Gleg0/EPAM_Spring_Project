@@ -10,11 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 @Service
 public class ReportService {
-    @PersistenceContext
-    private EntityManager em;
     @Autowired
     private ReportRepository reportRepository;
-
     public Report getReportById(Long id) {
         return reportRepository.getById(id);
     }

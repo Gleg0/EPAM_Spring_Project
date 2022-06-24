@@ -25,8 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class EventService {
-    @PersistenceContext
-    private EntityManager em;
+
     @Autowired
     private EventRepository eventRepository;
     @Autowired
