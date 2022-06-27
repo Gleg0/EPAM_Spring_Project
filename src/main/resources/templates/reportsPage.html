@@ -24,7 +24,7 @@
             <tr th:each="report : ${reportList}">
                 <td><span th:text="${report.name}"> Name </span></td>
                 <div sec:authorize="hasAuthority('SPEAKER')">
-                    <div th:if="${report.speaker != null}}">
+                    <div th:if="${report.speaker != null}">
                         <td><span th:text="${report.speaker.username}"> Speaker </span></td>
                     </div>
                     <div th:unless="${report.speaker != null}">

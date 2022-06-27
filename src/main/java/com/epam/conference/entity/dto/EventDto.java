@@ -8,10 +8,10 @@ import javax.validation.constraints.NotNull;
 @Getter
 public class EventDto {
     @NotEmpty
-    String name;
+    private String name;
     @NotEmpty
-    String description;
+    private String description;
     @NotNull
     @DateTimeFormat
-    String date;
+    private String date;
 }

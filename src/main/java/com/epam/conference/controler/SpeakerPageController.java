@@ -19,24 +19,22 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
-@RequestMapping("/events")
+@RequestMapping("/speaker")
 @Controller
-public class EventsPageController {
-    @Autowired
-    EventService eventService;
+public class SpeakerPageController {
+
     @Autowired
     UserService userService;
+    @Autowired
+    EventService eventService;
 
     @GetMapping
-    public String events(Model model, @PageableDefault(size = 10) Pageable pageable, @AuthenticationPrincipal UserDetails currentUser,
-                         @RequestParam(value = "sort",required = false) Optional<String> sort, @RequestParam(value = "page",required = false) Optional<Integer> page){
-        int currentPage = page.orElse(1);
-        String sortType = sort.orElse("default");
-        Page pageablePage = eventService.getListOfEvents(pageable,sortType);
+    public String speakerGet(Model model, @PageableDefault(size = 10) Pageable pageable, @AuthenticationPrincipal UserDetails currentUser,
+                         @RequestParam(value = "page",required = false) Optional<Integer> page){
+        int currentPage = page.orElse(0);
+        Page pageablePage = eventService.getListOfEventsForSpeaker(pageable,userService.findUserByName(currentUser.getUsername()));
         model.addAttribute("user",userService.findUserByName(currentUser.getUsername()));
         model.addAttribute("eventList",pageablePage);
-        model.addAttribute("sort",sortType);
         int totalPages = pageablePage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
@@ -44,6 +42,7 @@ public class EventsPageController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }
-        return "eventsPage";
+        return "speakerPage";
     }
+
 }

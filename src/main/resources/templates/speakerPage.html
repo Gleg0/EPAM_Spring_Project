@@ -1,0 +1,49 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div class="content">
+    <nav th:insert="fragments/navbar.html"></nav>
+    <div class="row">
+        <h1 class="d-flex justify-content-center"></h1>
+    </div>
+    <div class="container-fluid me-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:text="#{name-events}"></th>
+                <th th:text="#{date-events}">
+                </th>
+                <th th:text="#{description-events}"></th>
+                <th th:text="#{number-of-participants}"></th>
+                <th th:text="#{number-of-reports}"></th>
+                <th th:text="#{reports-events}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${eventList.empty}">
+                <td colspan="2"> No events available </td>
+            </tr>
+            <tr th:each="event : ${eventList}">
+                <td><span th:text="${event.name}"> Name </span></td>
+                <td><span th:text="${#dates.format(event.date,'yyyy-MM-dd')}"> Data </span></td>
+                <td><span th:text="${event.description}"> Description </span></td>
+                <td><span th:text="${event.users.size()}"> Users </span></td>
+                <td><span th:text="${event.reports.size()}"> Reports </span></td>
+                <div sec:authorize="hasAuthority('SPEAKER')">
+                    <td>
+                        <a type="button" class="btn btn-primary me-4" th:href="@{'/reports?eventId=' + ${event.id}}" th:text="#{reports}"></a>
+                    </td>
+                </div>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${eventList.totalPages > 0}" class="row"
+             th:each="pageNumber : ${pageNumbers}">
+            <a type="button" class="btn btn-primary me-4" th:href="@{/speaker(page=${pageNumber - 1})}" th:text=${pageNumber} th:class="${pageNumber==eventList.number + 1} ? active"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -17,6 +17,13 @@
                     </a>
                 </div>
             </div>
+            <div sec:authorize="hasAuthority('SPEAKER')">
+                <div class="nav-item me-4" th:with="eventId=${param.eventId != null ? param.eventId[0] : 'none'}">
+                    <a class="btn btn-primary" th:text="#{speaker}"
+                       th:href="@{/speaker}">
+                    </a>
+                </div>
+            </div>
             <div class="nav-item me-4" th:with="eventId=${param.eventId != null ? param.eventId[0] : 'none'}">
                 <div th:if="${param.eventId != null}">
                     <a class="btn btn-primary" th:text="#{lang}"

@@ -13,11 +13,19 @@
             <thead>
             <tr>
                 <th th:text="#{name-events}"></th>
-                <th th:text="#{date-events}"></th>
+                <th th:text="#{date-events}">
+                </th>
+                <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=${pageNumber},sort=date)}"> Date</a>
+                <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=${pageNumber},sort=dateDes)}">Date des</a>
                 <th th:text="#{description-events}"></th>
                 <th th:text="#{number-of-participants}"></th>
+                <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=${pageNumber},sort=users)}"> Users size</a>
+                <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=${pageNumber},sort=usersDes)}">Users size des</a>
                 <th th:text="#{number-of-reports}"></th>
                 <th th:text="#{reports-events}"></th>
+                <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=${pageNumber},sort=reports)}"> Reports size</a>
+                <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=${pageNumber},sort=reportsDes)}">Reports size des</a>
+                <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=0,sort=before)}">Before current date</a>
             </tr>
             </thead>
             <tbody>
@@ -39,7 +47,11 @@
                 </div>
                 <div sec:authorize="hasAuthority('USER')">
                     <td>
-                        <a type="button" class="btn btn-primary me-4" th:href="@{'/regForEvent?eventId=' + ${event.id}}" th:text="#{reg-for-event}"></a>
+                        <div th:with="users=${event.users},userID=${user}">
+                            <div th:unless="${#lists.contains(users,user)}">
+                                <a type="button" class="btn btn-primary me-4" th:href="@{'/regForEvent?eventId=' + ${event.id}}" th:text="#{reg-button}"></a>
+                            </div>
+                        </div>
                         <a type="button" class="btn btn-primary me-4" th:href="@{'/reports?eventId=' + ${event.id}}" th:text="#{reports}"></a>
                     </td>
                 </div>
@@ -51,6 +63,10 @@
             </tr>
             </tbody>
         </table>
+        <div th:if="${eventList.totalPages > 0}" class="row"
+             th:each="pageNumber : ${pageNumbers}">
+            <a type="button" class="btn btn-primary me-4" th:href="@{/events(page=${pageNumber - 1},sort=${sort})}" th:text=${pageNumber} th:class="${pageNumber==eventList.number + 1} ? active"></a>
+        </div>
     </div>
 </div>
 </body>

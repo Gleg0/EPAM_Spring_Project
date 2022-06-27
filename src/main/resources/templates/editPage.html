@@ -1,0 +1,38 @@
+<!DOCTYPE>
+<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head"></head>
+<body>
+<div class="content">
+  <nav th:insert="fragments/navbar.html"></nav>
+    <dib th:if="${type == 'report'}">
+        <div class="container mt-4" th:with="reportId=${param.reportId != null ? param.reportId[0] : 'none'}">
+            <form method="post" th:action="@{'/edit/report?reportId=' + ${reportId}}" th:object="${report}">
+                <div class="row col-4" >
+                    <input class="form-control mb-2" th:field="*{name}" placeholder="Name" th:value="${report.name}"/>
+                    <select class="form-control mb-2" th:field="${report.speakerId}"  id="dropOperatorReport">
+                        <option th:value="${null}" th:text="#{option}"></option>
+                        <option th:each="user : ${speakers}" th:value="${user.id}" th:text="${user.username}"></option>
+                    </select>
+                    <textarea class="form-control mb-2" th:field="*{description}" placeholder="Description" th:value="${report.description}"></textarea>
+                    <button class="btn btn-primary" type="submit" th:text="#{edit-button}"></button>
+                </div>
+            </form>
+        </div>
+    </dib>
+    <dib th:if="${type == 'event'}">
+        <div class="container mt-4" th:with="eventId=${param.eventId != null ? param.eventId[0] : 'none'}">
+            <form method="post" th:action="@{'/edit/event?eventId=' + ${eventId}}" th:object="${event}">
+                <div class="row col-4" >
+                    <input class="form-control mb-2" th:field="*{name}" placeholder="Name" th:value="${event.name}"/>
+                    <label th:text="#{data-event}"></label>
+                    <input class="form-control mb-2" rows="3" id="txtDate" type="date" required th:field="*{date}" th:value="${event.date}" />
+                    <textarea class="form-control mb-2" th:field="*{description}" placeholder="Description" th:value="${event.description}"></textarea>
+                    <button class="btn btn-primary" type="submit" th:text="#{edit-button}"></button>
+                </div>
+            </form>
+        </div>
+    </dib>
+</div>
+</body>
+</html>

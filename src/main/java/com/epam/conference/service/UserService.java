@@ -75,4 +75,8 @@ public class UserService implements UserDetailsService{
     public List<User> allSpeakers() {
         return userRepository.findByRole(Role.SPEAKER);
     }
+
+    public User findUserByName(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
