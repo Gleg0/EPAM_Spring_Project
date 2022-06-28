@@ -28,9 +28,16 @@
                         <td><span th:text="${report.speaker.username}"> Speaker </span></td>
                     </div>
                     <div th:unless="${report.speaker != null}">
-                        <td>
-                            <input type="button" class="btn btn-primary me-4" onclick="window.location.href='/request?type=new_speaker&reportId=${report.id}}'" th:value="#{request-new-speaker}"/>
-                        </td>
+                        <div th:if="${#lists.contains(listsOfReqId,report.id)}">
+                            <td>
+                            <a type="button disable" class="btn btn-primary me-4" th:text="#{request-new-speaker}"></a>
+                            </td>
+                        </div>
+                        <div th:unless="${#lists.contains(listsOfReqId,report.id)}">
+                            <td>
+                                <a type="button " class="btn btn-primary me-4" th:href="@{/request(type=new_speaker,reportId=${report.id})}" th:text="#{request-new-speaker}"></a>
+                            </td>
+                        </div>
                     </div>
                 </div>
                 <div sec:authorize="hasAuthority('USER')">

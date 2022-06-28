@@ -19,4 +19,5 @@ public class Report {
     @JoinColumn(name = "speaker_id")
     private User speaker;
     private String description;
+    private Boolean accepted;
 }

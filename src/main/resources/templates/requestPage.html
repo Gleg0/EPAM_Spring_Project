@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<!DOCTYPE>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head.html :: head">
 </head>
 <body>
-
+<div class="content">
+    <nav th:insert="fragments/navbar.html"></nav>
+    <div class="row">
+        <h1 class="d-flex justify-content-center"></h1>
+    </div>
+    <div class="container-fluid me-4">
+        <form method="post" th:action="@{/request(eventId=${eventId})}" th:object="${report}">
+            <div class="col-4">
+                <label th:text="#{name-report}"></label>
+                <input class="form-control mb-2" rows="3" type="text" required th:field="*{name}"/>
+            </div>
+            <div class="col-4">
+                <select class="form-control mb-2" th:field="${report.speakerId}"  id="dropOperator">
+                    <option th:value="${null}" th:text="#{option}"></option>
+                    <option th:each="user : ${speakers}" th:value="${user.id}" th:text="${user.username}"></option>
+                </select>
+            </div>
+            <div class="col-4">
+                <label th:text="#{description-event}"></label>
+                <textarea class="form-control mb-2" rows="3" required th:field="*{description}"></textarea>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary" type="submit" th:text="#{create-report-button}"></button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>

@@ -12,6 +12,5 @@ public interface EventRepository extends JpaRepository<Event,Long> {
     Long getNextId();
     Page<Event> findAll(Pageable pageable);
     List<Event> findAllByDateAfter(Date date);
-
     List<Event> findAllByDateBefore(Date from);
 }

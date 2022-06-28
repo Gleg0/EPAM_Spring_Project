@@ -33,25 +33,25 @@ public class AddPageController {
     }
 
     @GetMapping("/event")
-    public String mainGetAddEvent(Model model){
+    public String getAddEvent(Model model){
         model.addAttribute("type","event");
         return "addPage";
     }
     @GetMapping("/report")
-    public String mainGetAddReport(Model model, @RequestParam Long eventId, Session session){
+    public String getAddReport(Model model, @RequestParam Long eventId, Session session){
         model.addAttribute("type","report");
         model.addAttribute("speakers",userService.allSpeakers());
         model.addAttribute("eventId",eventId);
         return "addPage";
     }
     @PostMapping("/event")
-    public String mainPostAddEvent(@ModelAttribute("event") @Valid EventDto eventDto){
+    public String postAddEvent(@ModelAttribute("event") @Valid EventDto eventDto){
         eventService.addNewEvent(eventDto);
-        return "redirect:/";
+        return "redirect:/events";
     }
     @PostMapping("/report")
-    public String mainPostAddReport(Model model,@ModelAttribute("report") @Valid ReportDto reportDto,@RequestParam(value = "eventId") Long eventId){
+    public String postAddReport(Model model,@ModelAttribute("report") @Valid ReportDto reportDto,@RequestParam(value = "eventId") Long eventId){
         eventService.addNewReport(eventId,reportDto);
-        return "redirect:/";
+        return "redirect:/events";
     }
 }

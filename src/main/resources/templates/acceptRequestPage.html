@@ -1,0 +1,42 @@
+<!DOCTYPE>
+<html xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/head.html :: head">
+</head>
+<body>
+<div class="content">
+    <nav th:insert="fragments/navbar.html"></nav>
+    <div class="row">
+        <h1 class="d-flex justify-content-center"></h1>
+    </div>
+    <div class="container-fluid me-4">
+        <table class="table">
+            <thead>
+            <tr>
+                <th th:text="#{type}"></th>
+                <th th:text="#{acceptRequest}"></th>
+                <th th:text="#{speaker}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${requestList.empty}">
+                <td colspan="2"> No request available </td>
+            </tr>
+            <tr th:each="userRequest : ${requestList}">
+                <td><span th:text="${userRequest.type}"> Type </span></td>
+                <td><span th:text="${userRequest.report.name}"> Name of report </span></td>
+                <td><span th:text="${userRequest.user.username}"> Name of user </span></td>
+                <td>
+                    <a class="btn btn-primary" th:text="#{accept}"
+                       th:href="@{/acceptRequest(requestId=${userRequest.id})}">
+                    </a>
+                    <a class="btn btn-primary" th:text="#{reject}"
+                       th:href="@{/acceptRequest(requestId=${userRequest.id},reject=reject)}">
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -110,6 +110,7 @@ public class EventService {
         Report report = new Report();
         report.setName(reportDto.getName());
         report.setDescription(reportDto.getDescription());
+        report.setAccepted(true);
         if(reportDto.getSpeakerId()!=null){
             report.setSpeaker(userRepository.getById(reportDto.getSpeakerId()));
         }
@@ -161,5 +162,19 @@ public class EventService {
             }
         }
         return ServiceUtils.toPage(result,pageable);
+    }
+
+    public Report addNewReportRequest(Long eventId, ReportDto reportDto) {
+        Report report = new Report();
+        report.setName(reportDto.getName());
+        report.setDescription(reportDto.getDescription());
+        report.setAccepted(false);
+        if(reportDto.getSpeakerId()!=null){
+            report.setSpeaker(userRepository.getById(reportDto.getSpeakerId()));
+        }
+        reportRepository.save(report);
+        eventRepository.getById(eventId).getReports().add(report);
+        eventRepository.save(eventRepository.getById(eventId));
+        return report;
     }
 }

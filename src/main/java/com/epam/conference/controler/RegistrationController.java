@@ -31,14 +31,18 @@ public class RegistrationController{
     }
     @PostMapping
     public String registerUserAccount(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result) {
-        User existing = userService.findUserByEmail(userDto.getEmail());
-        if (existing != null) {
+        User existingEmail = userService.findUserByEmail(userDto.getEmail());
+        User existingUsername = userService.findUserByName(userDto.getUsername());
+        if (existingEmail != null) {
             result.rejectValue("email", null, "There is already an account registered with that email");
+        }
+        if (existingUsername != null) {
+            result.rejectValue("username", null, "There is already an account registered with that username");
         }
         if (result.hasErrors()) {
             return "registrationPage";
         }
         userService.registerNewUserAccount(userDto);
-        return "redirect:/registration?success";
+        return "redirect:/login";
     }
 }

@@ -6,9 +6,11 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "t_user_request")
 public class UserRequest {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToOne
     @JoinColumn(name = "user_id")

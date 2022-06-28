@@ -3,13 +3,21 @@
     <div class="container-fluid">
         <div class="d-flex">
             <div class="nav-item me-4">
-                <input type="button" class="btn btn-primary" onclick="window.location.href='/'" th:value="#{mainPage-button}"/>
-            </div>
-            <div class="nav-item me-4">
                 <span class="navbar-brand mb-0 h1"></span>
             </div>
         </div>
         <div class="d-flex">
+            <div class="row" th:if="${user != null}">
+            </div>
+            <div class="d-flex me-4">
+                <a type="button" class="btn btn-primary me-4" th:href="@{/before}" th:text="#{past-events}"></a>
+                <input type="button" class="btn btn-primary me-4" onclick="window.location.href='/events'" th:value="#{events}"/>
+                <div th:if="${user != null}">
+                    <div sec:authorize="hasAuthority('MODERATOR')">
+                        <input type="button" class="btn btn-primary me-4" onclick="window.location.href='/add/event'" th:value="#{add-event}"/>
+                    </div>
+                </div>
+            </div>
             <div class="nav-item me-4">
                 <div th:if="${param.eventId == null}">
                     <a class="btn btn-primary" th:text="#{lang}"
@@ -23,6 +31,11 @@
                        th:href="@{/speaker}">
                     </a>
                 </div>
+            </div>
+            <div sec:authorize="hasAuthority('MODERATOR')">
+                <a class="btn btn-primary" th:text="#{acceptRequest}"
+                   th:href="@{/acceptRequestList}">
+                </a>
             </div>
             <div class="nav-item me-4" th:with="eventId=${param.eventId != null ? param.eventId[0] : 'none'}">
                 <div th:if="${param.eventId != null}">
