@@ -25,7 +25,6 @@ public class ReportsPageController {
 
     @GetMapping("/reports")
     public String mainGet(Model model,@RequestParam Long eventId,@AuthenticationPrincipal UserDetails currentUser){
-        System.out.println(eventId);
         model.addAttribute("reportList",reportService.getAccepted(eventId));
         model.addAttribute("listsOfReqId",requestService.getListOfReqId(userService.findUserByName(currentUser.getUsername())));
         return "reportsPage";

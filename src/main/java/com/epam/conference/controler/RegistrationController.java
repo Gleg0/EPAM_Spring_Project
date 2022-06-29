@@ -1,7 +1,7 @@
 package com.epam.conference.controler;
 
-import com.epam.conference.entity.user.User;
 import com.epam.conference.entity.dto.UserDto;
+import com.epam.conference.entity.user.User;
 import com.epam.conference.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/registration")
-public class RegistrationController{
+public class RegistrationController {
     @Autowired
     private UserService userService;
 
     @ModelAttribute("user")
-    public UserDto userDto() {
+    private UserDto userDto() {
         return new UserDto();
     }
 
