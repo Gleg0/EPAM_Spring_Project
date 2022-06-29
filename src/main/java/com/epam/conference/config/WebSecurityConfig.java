@@ -29,7 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/registration").not().fullyAuthenticated()
                     .antMatchers("/login/**").permitAll()
                     .antMatchers("/add","/acceptRequest/").hasRole("MODERATOR")
-                    .antMatchers("/request/").hasRole("SPEAKER")
+                    .antMatchers("/request/","/speaker/").hasRole("SPEAKER")
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
